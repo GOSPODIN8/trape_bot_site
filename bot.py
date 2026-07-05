@@ -37,7 +37,7 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, CommandObject
-from aiogram.types import 
+from aiogram.types import (
     Message,
     CallbackQuery,
     PreCheckoutQuery,
@@ -46,6 +46,7 @@ from aiogram.types import
     InlineKeyboardButton,
     WebAppInfo,
     MenuButtonWebApp,
+)
 
 # ============================================================
 # НАСТРОЙКИ — впишите свои данные сюда
