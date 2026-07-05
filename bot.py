@@ -44,10 +44,11 @@ from aiogram.types import (
     LabeledPrice,
     InlineKeyboardMarkup,
     InlineKeyboardButton,
-)
+    WebAppInfo,
+    MenuButtonWebApp,
 
 # ============================================================
-# НАСТРОЙКИ — "8569629917:AAHVYpGlaH-MI4-nECmKlHfFnWda9_qpQjo"
+# НАСТРОЙКИ — впишите свои данные сюда
 # ============================================================
 
 # Токен бота из @BotFather (обязательно замените на свой!)
@@ -71,6 +72,10 @@ CHANNEL_SHOP_ID = -1002665594068  # например: -1001234567890
 
 # Цена курса "Магазин под ключ" в Telegram Stars
 SHOP_PRICE_STARS = 1600
+
+# Ссылка на ваш сайт (обязательно HTTPS!), например GitHub Pages:
+# https://ваш_логин.github.io/название_репозитория/
+WEBSITE_URL = "https://trape-site-tr5o.vercel.app"
 
 # ============================================================
 # Дальше ничего менять не нужно
@@ -97,12 +102,24 @@ async def handle_start(message: Message, command: CommandObject):
     elif payload == "shop":
         await send_shop_offer(message)
     else:
-        # Если человек просто написал боту /start без параметра
+        # Если человек просто написал боту /start без параметра —
+        # показываем кнопку, которая открывает сайт прямо внутри Telegram
+        keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(
+                        text="🌐 Открыть сайт",
+                        web_app=WebAppInfo(url=WEBSITE_URL),
+                    )
+                ]
+            ]
+        )
         await message.answer(
             "Привет! 👋 Это бот <b>Клуба Трейпа</b>.\n\n"
-            "Переходи по ссылкам с нашего сайта, чтобы получить доступ "
-            "к бесплатному обучению трейдингу или курсу по запуску "
-            "онлайн-магазина."
+            "Открой сайт, чтобы выбрать подходящий тариф — "
+            "бесплатное обучение трейдингу или курс по запуску "
+            "онлайн-магазина.",
+            reply_markup=keyboard,
         )
 
 
@@ -220,8 +237,17 @@ async def process_successful_payment(message: Message):
 # Запуск бота
 # ------------------------------------------------------------
 async def main():
+    # Устанавливаем постоянную кнопку "Меню" рядом с полем ввода —
+    # при нажатии она сразу открывает сайт как Web App
+    await bot.set_chat_menu_button(
+        menu_button=MenuButtonWebApp(
+            text="Открыть сайт",
+            web_app=WebAppInfo(url=WEBSITE_URL),
+        )
+    )
     await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
     asyncio.run(main())
+
