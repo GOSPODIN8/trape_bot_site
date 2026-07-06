@@ -72,7 +72,7 @@ SHOP_CHANNEL_FALLBACK_LINK = "https://t.me/+C8r0SYMar-plMTdk"
 CHANNEL_SHOP_ID = -1002665594068  # например: -1001234567890
 
 # Цена курса "Магазин под ключ" в Telegram Stars
-SHOP_PRICE_STARS = 1600
+SHOP_PRICE_STARS = 1499
 
 # Ссылка на ваш сайт (обязательно HTTPS!), например GitHub Pages:
 # https://ваш_логин.github.io/название_репозитория/
